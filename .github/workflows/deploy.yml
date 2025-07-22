@@ -1,4 +1,4 @@
-name: Deploy Spring Boot to EC2 with Docker
+name: Deploy Spring Boot to AWS EC2 with Docker
 
 on:
   push:
