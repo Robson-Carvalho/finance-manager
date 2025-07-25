@@ -1,4 +1,4 @@
-name: Deploy Spring Boot to AWS EC2 with Docker
+name: Deploy Spring Boot to Oracle Cloud with Docker
 
 on:
   push:
@@ -38,7 +38,7 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/finance-manager:latest
 
   deploy:
-    name: Deploy to EC2
+    name: Deploy to Oracle Cloud
     needs: build
     runs-on: ubuntu-latest
 
@@ -46,15 +46,15 @@ jobs:
       - name: Install SSH key
         uses: shimataro/ssh-key-action@v2
         with:
-          key: ${{ secrets.EC2_SSH_KEY }}
-          known_hosts: ${{ secrets.EC2_KNOWN_HOSTS }}
+          key: ${{ secrets.ORACLE_SSH_KEY }}
+          known_hosts: ${{ secrets.ORACLE_KNOWN_HOSTS }}
 
       - name: Deploy application
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USER }}
-          key: ${{ secrets.EC2_SSH_KEY }}
+          host: ${{ secrets.ORACLE_HOST }}
+          username: ${{ secrets.ORACLE_USER }}
+          key: ${{ secrets.ORACLE_SSH_KEY }}
           script: |
             sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/finance-manager:latest
             sudo docker stop finance-manager || true
