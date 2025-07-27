@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.UUID;
+import java.time.LocalDateTime;
+import java.math.BigDecimal;
 
 @Table(name = "transaction")
 @Entity
@@ -34,8 +36,12 @@ public class Transaction {
     @JoinColumn(name = "category_id")
     private Category category;
 
-    private String name;
+    private String description;
 
     @Enumerated(EnumType.STRING)
     private TransactionType type;
+
+    private LocalDateTime date;
+
+    private BigDecimal amount;
 }

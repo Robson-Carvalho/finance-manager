@@ -1,14 +1,14 @@
-FROM eclipse-temurin:24-jdk as build
+FROM eclipse-temurin:24-jdk AS build
+
 RUN apt-get update && apt-get install -y maven
 WORKDIR /app
-COPY pom.xml .
+COPY pom.xml ./
 COPY src ./src
 RUN mvn clean package -DskipTests
 
 FROM eclipse-temurin:24-jre
+
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
-
 ARG ACTIVE_PROFILE
-
 ENTRYPOINT ["java", "-jar", "app.jar"]
