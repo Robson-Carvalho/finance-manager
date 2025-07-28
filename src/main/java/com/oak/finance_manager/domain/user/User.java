@@ -1,20 +1,18 @@
 package com.oak.finance_manager.domain.user;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.UUID;
 
-@Table(name = "\"user\"")
 @Entity
-@Setter
+@Table(name = "\"user\"")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
+
     @Id
     @GeneratedValue
     private UUID id;
@@ -26,5 +24,5 @@ public class User {
 
     private String password;
 
-    private Boolean email_verified;
+    private boolean email_verified;
 }
