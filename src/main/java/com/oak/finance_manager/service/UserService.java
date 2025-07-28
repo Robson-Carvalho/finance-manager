@@ -8,6 +8,8 @@ import com.oak.finance_manager.repositories.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserService {
 
@@ -30,6 +32,10 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(dto.password()));
 
         User savedUser = userRepository.save(user);
-        return new UserResponseDTO(savedUser.getId());
+        return new UserResponseDTO(savedUser.getId().toString(), savedUser.getName(), savedUser.getEmail());
+    }
+
+    public Optional<User> getUserByEmail(String email) {
+        return this.userRepository.findByEmail(email);
     }
 }
