@@ -21,5 +21,4 @@ public class UserController {
         UserResponseDTO response = this.userService.createUser(body);
         return ResponseEntity.ok(response);
     }
-
 }
