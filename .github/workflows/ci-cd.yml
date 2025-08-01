@@ -59,10 +59,4 @@ jobs:
             sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/finance-manager:latest
             sudo docker stop finance-manager || true
             sudo docker rm finance-manager || true
-            sudo docker run -d \
-              --name finance-manager \
-              -p 8080:8080 \
-              -e DB_URL=${{secrets.DB_URL}} \
-              -e DB_USERNAME=${{secrets.DB_USERNAME}} \
-              -e DB_PASSWORD='${{secrets.DB_PASSWORD}}' \
-              ${{ secrets.DOCKERHUB_USERNAME }}/finance-manager:latest
+            sudo docker run -d --name finance-manager -p 8080:8080 -e DB_URL=${{secrets.DB_URL}} -e DB_USERNAME=${{secrets.DB_USERNAME}} -e DB_PASSWORD='${{secrets.DB_PASSWORD}}' ${{ secrets.DOCKERHUB_USERNAME }}/finance-manager:latest
