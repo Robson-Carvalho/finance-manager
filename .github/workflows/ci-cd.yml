@@ -62,5 +62,7 @@ jobs:
             sudo docker run -d \
               --name finance-manager \
               -p 8080:8080 \
-              --env-file .env \
+              -e DB_URL=${{secrets.DB_URL}} \
+              -e DB_USERNAME=${{secrets.DB_USERNAME}} \
+              -e DB_PASSWORD=${{secrets.DB_PASSWORD}} \
               ${{ secrets.DOCKERHUB_USERNAME }}/finance-manager:latest
