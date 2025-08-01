@@ -5,6 +5,7 @@ import com.oak.finance_manager.dto.LoginRequestDTO;
 import com.oak.finance_manager.dto.LoginResponseDTO;
 import com.oak.finance_manager.dto.RegisterResponseDTO;
 import com.oak.finance_manager.dto.RegisterRequestDTO;
+import com.oak.finance_manager.exceptions.EmailAlreadyExistsException;
 import com.oak.finance_manager.infra.security.TokenService;
 import com.oak.finance_manager.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -31,12 +32,12 @@ public class AuthController {
     public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginRequestDTO body) {
         User user = this.userRepository.findByEmail(body.email()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-        if(passwordEncoder.matches(body.password(), user.getPassword())){
-           String token = this.tokenService.getToken(user);
-           return ResponseEntity.ok(new LoginResponseDTO(user.getId(), user.getName(), user.getEmail(), token));
+        if(!passwordEncoder.matches(body.password(), user.getPassword())){
+            throw new EmailAlreadyExistsException();
         }
 
-        return ResponseEntity.badRequest().build();
+        String token = this.tokenService.getToken(user);
+        return ResponseEntity.ok(new LoginResponseDTO(user.getId(), user.getName(), user.getEmail(), token));
     }
 
     @PostMapping("/register")

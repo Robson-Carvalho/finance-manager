@@ -23,7 +23,7 @@ public class UserService {
 
     public UserResponseDTO createUser(UserRequestDTO dto) {
         if (userRepository.existsByEmail(dto.email())) {
-            throw new EmailAlreadyExistsException("Email já cadastrado");
+            throw new EmailAlreadyExistsException();
         }
 
         User user = new User();

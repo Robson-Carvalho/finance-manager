@@ -5,7 +5,6 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.oak.finance_manager.domain.user.User;
-import com.oak.finance_manager.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -23,13 +22,11 @@ public class TokenService {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
 
-            String token = JWT.create()
+            return JWT.create()
                             .withIssuer("finance-manager")
                             .withSubject(user.getEmail())
                             .withExpiresAt(generateExpirationDate())
                             .sign(algorithm);
-
-            return token;
 
         } catch (JWTCreationException exception) {
             throw new RuntimeException("Erro while autenticando token");

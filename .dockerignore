@@ -1,5 +1,4 @@
-# Ignorar arquivos sensíveis com dados de configuração
-.env
+# Ignorar arquivos sensíveis com dados de configuraçãos
 .env.*
 !.env.example  # Não ignore o exemplo de .env
 
