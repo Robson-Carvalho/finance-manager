@@ -1,4 +1,4 @@
-name: Deploy Spring Boot to Oracle Cloud with Docker
+name: (Continuous Integration/Continuous Delivery)
 
 on:
   push:
