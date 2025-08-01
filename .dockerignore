@@ -1,0 +1,20 @@
+# Ignorar arquivos sensíveis com dados de configuraçãos
+.env.*
+!.env.example  # Não ignore o exemplo de .env
+
+# Ignorar diretórios de build e compilação
+target/
+*.class
+
+# Ignorar arquivos de configuração de IDE
+.idea/
+.vscode/
+*.iml
+
+# Ignorar arquivos do sistema
+.DS_Store
+Thumbs.db
+
+# Ignorar backups ou arquivos temporários
+*.bak
+*.tmp
