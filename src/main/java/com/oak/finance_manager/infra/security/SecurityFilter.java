@@ -2,6 +2,7 @@ package com.oak.finance_manager.infra.security;
 
 
 import com.oak.finance_manager.domain.user.User;
+import com.oak.finance_manager.exceptions.UserNotFoundException;
 import com.oak.finance_manager.repositories.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -32,12 +33,13 @@ public class SecurityFilter extends OncePerRequestFilter {
         String email = tokenService.validateToken(token);
 
         if(email != null){
-           User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
+           User user = userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
 
             var authorities = Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
             var authentication = new UsernamePasswordAuthenticationToken(user, null, authorities);
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
+
         filterChain.doFilter(request, response);
     }
 
