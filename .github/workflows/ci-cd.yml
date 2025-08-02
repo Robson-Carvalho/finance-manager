@@ -63,5 +63,6 @@ jobs:
               -e DB_URL="${{ secrets.DB_URL }}" \
               -e DB_USERNAME="${{ secrets.DB_USERNAME }}" \
               -e DB_PASSWORD="${{ secrets.DB_PASSWORD }}" \
+              -e JWT_SECRET="${{secrets.JWT_SECRET}}" \
               --network monitoring-net \
               ${{ secrets.DOCKERHUB_USERNAME }}/finance-manager:latest
