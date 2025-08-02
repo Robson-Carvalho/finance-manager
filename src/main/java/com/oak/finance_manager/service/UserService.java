@@ -1,8 +1,6 @@
 package com.oak.finance_manager.service;
 
 import com.oak.finance_manager.domain.user.User;
-import com.oak.finance_manager.domain.user.UserRequestDTO;
-import com.oak.finance_manager.domain.user.UserResponseDTO;
 import com.oak.finance_manager.exceptions.EmailAlreadyExistsException;
 import com.oak.finance_manager.repositories.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,21 +19,24 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public UserResponseDTO createUser(UserRequestDTO dto) {
-        if (userRepository.existsByEmail(dto.email())) {
+    public String create(String name,String email, String password) {
+        if (userRepository.existsByEmail(email)) {
             throw new EmailAlreadyExistsException();
         }
 
         User user = new User();
-        user.setName(dto.name());
-        user.setEmail(dto.email());
-        user.setPassword(passwordEncoder.encode(dto.password()));
+        user.setName(name);
+        user.setEmail(email);
+        user.setPassword(passwordEncoder.encode(password));
 
         User savedUser = userRepository.save(user);
-        return new UserResponseDTO(savedUser.getId().toString(), savedUser.getName(), savedUser.getEmail());
+
+        return savedUser.getId().toString();
     }
 
-    public Optional<User> getUserByEmail(String email) {
-        return this.userRepository.findByEmail(email);
+    public User findByEmail(String email) {
+        Optional<User> user = this.userRepository.findByEmail(email);
+
+        return user.orElse(null);
     }
 }
