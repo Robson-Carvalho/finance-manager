@@ -18,7 +18,6 @@ public class EmailService {
     private final JavaMailSender mailSender;
     private final TemplateEngine templateEngine;
 
-
     @Value("${api.frontend.host}")
     private String frontendHost;
 
@@ -42,22 +41,27 @@ public class EmailService {
         this.templateEngine.setTemplateResolver(resolver);
     }
 
-    public void sendActivationEmail(String token, String recipientEmail) {
+    public void sendActivationEmail(String token, String recipientEmail, String userName) {
         String link = frontendHost + "/activate-account?token=" + token;
-
         Context context = new Context();
+
         context.setVariable("activationLink", link);
+        context.setVariable("firstName", userName);
+
         String htmlContent = templateEngine.process("activation-email", context);
 
         sendHtmlEmail(recipientEmail, "Ative sua conta - Finance Manager", htmlContent);
     }
 
-    public void sendPasswordRecoveryEmail(String token, String recipientEmail) {
+    public void sendPasswordRecoveryEmail(String token, String recipientEmail, String userName) {
         String link = frontendHost + "/reset-password?token=" + token;
 
         Context context = new Context();
+
+        context.setVariable("firstName", userName);
         context.setVariable("resetLink", link);
-        String htmlContent = templateEngine.process("password-recovery-email", context);
+
+        String htmlContent = templateEngine.process("password-recovery", context);
 
         sendHtmlEmail(recipientEmail, "Recupere sua senha - Finance Manager", htmlContent);
     }

@@ -1,22 +1,42 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Ativação de Conta</title>
+    <title>Bem-vindo ao Finance Manager</title>
     <style>
-        .button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 12px 20px;
-            text-decoration: none;
-            border-radius: 5px;
+        a.button:hover {
+            background-color: #45a049 !important;
+        }
+        a.plain-link:hover {
+            text-decoration: underline !important;
+            color: #2c3e50 !important;
         }
     </style>
 </head>
-<body style="font-family: Arial, sans-serif;">
-<h2>Bem-vindo ao Finance Manager!</h2>
-<p>Para ativar sua conta, clique no botão abaixo:</p>
-<a href="${activationLink}" class="button">Ativar Conta</a>
-<p>Se você não criou uma conta, apenas ignore este e-mail.</p>
+<body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f6f8; margin: 0; padding: 0;">
+<div style="background-color: #ffffff; max-width: 600px; margin: 30px auto; padding: 30px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+    <h2 style="color: #2c3e50;">Olá, <span th:text="${firstName}">Nome</span>!</h2>
+
+    <p style="color: #555;">Seja muito bem-vindo ao <strong>Finance Manager</strong>, sua nova ferramenta para gerenciar suas finanças pessoais com praticidade, segurança e inteligência.</p>
+
+    <p style="color: #555;">Com o Finance Manager, você poderá acompanhar seus gastos, definir metas, gerar relatórios e tomar decisões mais inteligentes sobre o seu dinheiro.</p>
+
+    <p style="color: #555;">Clique no botão abaixo para ativar sua conta:</p>
+
+    <a th:href="${activationLink}"
+       class="button"
+       target="_blank"
+       style="display:inline-block;background-color:#4CAF50;color:#ffffff;
+                  padding:12px 24px;text-decoration:none;border-radius:5px;
+                  font-size:16px;font-weight:bold;cursor:pointer;">
+        Ativar Conta
+    </a>
+
+    <p style="color: #555;">Se você não criou uma conta, apenas ignore este e-mail.</p>
+
+    <div style="margin-top: 40px; font-size: 12px; color: #999; text-align: center;">
+        &copy; 2025 Finance Manager. Todos os direitos reservados.
+    </div>
+</div>
 </body>
 </html>

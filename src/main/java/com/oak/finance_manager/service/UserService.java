@@ -53,7 +53,11 @@ public class UserService {
 
         user.setName(dto.name());
         user.setEmail(dto.email());
-        user.setPassword(passwordEncoder.encode(dto.password()));
+        if (!dto.password().startsWith("$2a$")) {
+            user.setPassword(passwordEncoder.encode(dto.password()));
+        } else {
+            user.setPassword(dto.password());
+        }
         user.setEmail_verified(dto.email_verified());
 
         userRepository.save(user);

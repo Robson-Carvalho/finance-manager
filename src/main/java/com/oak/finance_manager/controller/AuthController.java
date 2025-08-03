@@ -1,10 +1,7 @@
 package com.oak.finance_manager.controller;
 
 import com.oak.finance_manager.domain.user.User;
-import com.oak.finance_manager.dto.auth.LoginRequestDTO;
-import com.oak.finance_manager.dto.auth.LoginResponseDTO;
-import com.oak.finance_manager.dto.auth.RegisterRequestDTO;
-import com.oak.finance_manager.dto.auth.RegisterResponseDTO;
+import com.oak.finance_manager.dto.auth.*;
 import com.oak.finance_manager.dto.user.UserUpdateDTO;
 import com.oak.finance_manager.exceptions.EmailAlreadyExistsException;
 import com.oak.finance_manager.exceptions.InactiveAccountException;
@@ -58,11 +55,11 @@ public class AuthController {
         newUser.setEmail(body.email());
         newUser.setPassword(passwordEncoder.encode(body.password()));
 
-        String id =  this.userService.create(body.name(), body.email(), body.password());
+        String id = this.userService.create(body.name(), body.email(), body.password());
 
         String token = this.tokenService.getToken(newUser);
 
-        emailService.sendActivationEmail(token, body.email());
+        emailService.sendActivationEmail(token, body.email(), body.name().split(" ")[0]);
 
         return ResponseEntity.ok(new RegisterResponseDTO(id, body.email(), token));
     }
@@ -83,4 +80,35 @@ public class AuthController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/recover_password/{email}")
+    public ResponseEntity<Void> sendPasswordRecovery(@PathVariable String email) {
+        User user = this.userService.findByEmail(email);
+
+        if(user == null){
+            throw new  UserNotFoundException();
+        }
+
+        String token = this.tokenService.getToken(user);
+
+        emailService.sendPasswordRecoveryEmail(token, user.getEmail(), user.getName());
+
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/recover_password/{token}")
+    public ResponseEntity<Void> recoverPassword(@PathVariable String token, @RequestBody RecoverPasswordRequestDTO body) {
+        String email = tokenService.validateToken(token);
+
+        if(email == null){
+            throw new UnauthorizedException("Invalid token");
+        }
+
+        User user = this.userService.findByEmail(email);
+
+        user.setPassword(body.password());
+
+        userService.update(user.getId().toString(), new UserUpdateDTO(user.getName(), user.getEmail(), user.getPassword(), user.isEmail_verified()));
+
+        return ResponseEntity.ok().build();
+    }
 }
