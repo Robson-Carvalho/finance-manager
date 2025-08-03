@@ -1,12 +1,15 @@
 package com.oak.finance_manager.service;
 
 import com.oak.finance_manager.domain.user.User;
+import com.oak.finance_manager.dto.user.UserUpdateDTO;
 import com.oak.finance_manager.exceptions.EmailAlreadyExistsException;
+import com.oak.finance_manager.exceptions.UserNotFoundException;
 import com.oak.finance_manager.repositories.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UserService {
@@ -36,7 +39,24 @@ public class UserService {
 
     public User findByEmail(String email) {
         Optional<User> user = this.userRepository.findByEmail(email);
-
         return user.orElse(null);
     }
+
+    public User findById(String id) {
+        Optional<User> user = this.userRepository.findById(UUID.fromString(id));
+        return user.orElse(null);
+    }
+
+    public void update(String id, UserUpdateDTO dto) {
+        User user = userRepository.findById(UUID.fromString(id))
+                .orElseThrow(UserNotFoundException::new);
+
+        user.setName(dto.name());
+        user.setEmail(dto.email());
+        user.setPassword(passwordEncoder.encode(dto.password()));
+        user.setEmail_verified(dto.email_verified());
+
+        userRepository.save(user);
+    }
+
 }
