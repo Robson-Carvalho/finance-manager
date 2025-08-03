@@ -1,9 +1,6 @@
 package com.oak.finance_manager.infra.handler;
 
-import com.oak.finance_manager.exceptions.EmailAlreadyExistsException;
-import com.oak.finance_manager.exceptions.InactiveAccountException;
-import com.oak.finance_manager.exceptions.UnauthorizedException;
-import com.oak.finance_manager.exceptions.UserNotFoundException;
+import com.oak.finance_manager.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,5 +26,10 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(InactiveAccountException.class)
     public ResponseEntity<String> InactiveAccountException(InactiveAccountException exception) {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(exception.getMessage());
+    }
+
+    @ExceptionHandler(NotSendMailException.class)
+    public ResponseEntity<String> NotSendMailException(NotSendMailException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
     }
 }
