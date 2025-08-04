@@ -27,6 +27,9 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers(HttpMethod.GET, "/api/auth/recover_password/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/auth/recover_password/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/auth/activate_account/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/auth/register").permitAll()
                         .requestMatchers(HttpMethod.GET, "/actuator").permitAll()

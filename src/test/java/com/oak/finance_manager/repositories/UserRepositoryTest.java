@@ -1,7 +1,7 @@
 package com.oak.finance_manager.repositories;
 
 import com.oak.finance_manager.domain.user.User;
-import com.oak.finance_manager.domain.user.UserRequestDTO;
+import com.oak.finance_manager.dto.user.UserRequestDTO;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

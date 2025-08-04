@@ -1,4 +1,4 @@
-package com.oak.finance_manager.dto;
+package com.oak.finance_manager.dto.auth;
 
 import java.util.UUID;
 
