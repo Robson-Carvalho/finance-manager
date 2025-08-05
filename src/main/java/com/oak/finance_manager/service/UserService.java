@@ -47,6 +47,14 @@ public class UserService {
         return user.orElse(null);
     }
 
+    public void delete(String id) {
+        userRepository.deleteById(UUID.fromString(id));
+
+        if(userRepository.existsById(UUID.fromString(id))){
+            throw new UserNotFoundException(id);
+        }
+    }
+
     public void update(String id, UserUpdateDTO dto) {
         User user = userRepository.findById(UUID.fromString(id))
                 .orElseThrow(UserNotFoundException::new);
