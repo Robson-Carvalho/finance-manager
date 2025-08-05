@@ -64,9 +64,9 @@ jobs:
               -e DB_USERNAME="${{ secrets.DB_USERNAME }}" \
               -e DB_PASSWORD="${{ secrets.DB_PASSWORD }}" \
               -e JWT_SECRET="${{secrets.JWT_SECRET}}" \
-              -e FRONTEND_HOST="${{secrets.FRONTEND_HOST}}"
-              -e MAIL_USERNAME="${{secrets.MAIL_USERNAME}}"
-              -e MAIL_PASSWORD="${{secrets.MAIL_PASSWORD}}"
-              -e MAIL_FROM="${{secrets.MAIL_FROM}}"
+              -e FRONTEND_HOST="${{secrets.FRONTEND_HOST}}" \
+              -e MAIL_USERNAME="${{secrets.MAIL_USERNAME}}" \
+              -e MAIL_PASSWORD="${{secrets.MAIL_PASSWORD}}" \
+              -e MAIL_FROM="${{secrets.MAIL_FROM}}" \
               --network monitoring-net \
               ${{ secrets.DOCKERHUB_USERNAME }}/finance-manager:latest
