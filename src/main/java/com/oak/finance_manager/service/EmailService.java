@@ -1,6 +1,6 @@
 package com.oak.finance_manager.service;
 
-import com.oak.finance_manager.exceptions.NotSendMailException;
+import com.oak.finance_manager.exceptions.email.NotSendMailException;
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;

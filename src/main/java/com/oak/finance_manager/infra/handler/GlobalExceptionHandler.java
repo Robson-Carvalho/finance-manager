@@ -1,9 +1,15 @@
 package com.oak.finance_manager.infra.handler;
 
-import com.oak.finance_manager.exceptions.*;
+import com.oak.finance_manager.exceptions.auth.InactiveAccountException;
+import com.oak.finance_manager.exceptions.email.NotSendMailException;
+import com.oak.finance_manager.exceptions.auth.UnauthorizedException;
+import com.oak.finance_manager.exceptions.category.CategoryNotFoundException;
+import com.oak.finance_manager.exceptions.user.EmailAlreadyExistsException;
+import com.oak.finance_manager.exceptions.user.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -32,4 +38,10 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> NotSendMailException(NotSendMailException exception) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
     }
+
+    @ExceptionHandler(CategoryNotFoundException.class)
+    public ResponseEntity<String> CategoryNotFoundException(CategoryNotFoundException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
+    }
+
 }

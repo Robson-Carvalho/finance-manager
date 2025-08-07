@@ -1,4 +1,4 @@
-package com.oak.finance_manager.exceptions;
+package com.oak.finance_manager.exceptions.email;
 
 public class NotSendMailException extends RuntimeException {
 

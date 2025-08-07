@@ -2,8 +2,8 @@ package com.oak.finance_manager.service;
 
 import com.oak.finance_manager.domain.user.User;
 import com.oak.finance_manager.dto.user.UserUpdateDTO;
-import com.oak.finance_manager.exceptions.EmailAlreadyExistsException;
-import com.oak.finance_manager.exceptions.UserNotFoundException;
+import com.oak.finance_manager.exceptions.user.EmailAlreadyExistsException;
+import com.oak.finance_manager.exceptions.user.UserNotFoundException;
 import com.oak.finance_manager.repositories.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

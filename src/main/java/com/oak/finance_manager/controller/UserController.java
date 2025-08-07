@@ -2,14 +2,13 @@ package com.oak.finance_manager.controller;
 
 import com.oak.finance_manager.domain.user.User;
 import com.oak.finance_manager.dto.user.UserUpdateDTO;
-import com.oak.finance_manager.exceptions.EmailAlreadyExistsException;
-import com.oak.finance_manager.exceptions.UnauthorizedException;
-import com.oak.finance_manager.exceptions.UserNotFoundException;
+import com.oak.finance_manager.exceptions.user.EmailAlreadyExistsException;
+import com.oak.finance_manager.exceptions.auth.UnauthorizedException;
+import com.oak.finance_manager.exceptions.user.UserNotFoundException;
 import com.oak.finance_manager.infra.security.TokenService;
 import com.oak.finance_manager.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -18,10 +17,9 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     public final UserService userService;
-    private final PasswordEncoder passwordEncoder;
     private final TokenService tokenService;
 
-    @DeleteMapping("/{token}/{id}")
+    @DeleteMapping("/{id}/{token}")
     public ResponseEntity<Void> deleteUser(@PathVariable String token,  @PathVariable String id) {
         String email = tokenService.validateToken(token);
 
@@ -40,7 +38,7 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/{token}/{id}")
+    @PostMapping("/{id}/{token}")
     public ResponseEntity<Void> updateUser(@PathVariable String token, @PathVariable String id, @RequestBody UserUpdateDTO userUpdateDTO) {
         String email = tokenService.validateToken(token);
 

@@ -1,4 +1,4 @@
-package com.oak.finance_manager.exceptions;
+package com.oak.finance_manager.exceptions.user;
 
 public class EmailAlreadyExistsException extends RuntimeException {
 

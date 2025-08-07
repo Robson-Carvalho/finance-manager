@@ -27,13 +27,21 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers(HttpMethod.GET, "/api/category/*").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/api/category").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/api/category").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/api/category/*").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/api/category/*").authenticated()
+
                         .requestMatchers(HttpMethod.GET, "/api/auth/recover_password/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/auth/recover_password/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/auth/activate_account/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/auth/register").permitAll()
+
                         .requestMatchers(HttpMethod.POST, "/api/user/**").permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/api/user/**").permitAll()
+
                         .requestMatchers(HttpMethod.GET, "/actuator").permitAll()
                         .requestMatchers(HttpMethod.GET, "/actuator/prometheus").permitAll()
                         .requestMatchers(HttpMethod.GET, "/hello-world").permitAll()

@@ -2,7 +2,7 @@ package com.oak.finance_manager.infra.security;
 
 
 import com.oak.finance_manager.domain.user.User;
-import com.oak.finance_manager.exceptions.UserNotFoundException;
+import com.oak.finance_manager.exceptions.user.UserNotFoundException;
 import com.oak.finance_manager.repositories.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

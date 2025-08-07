@@ -1,4 +1,4 @@
-package com.oak.finance_manager.exceptions;
+package com.oak.finance_manager.exceptions.auth;
 
 public class InactiveAccountException extends RuntimeException {
 
